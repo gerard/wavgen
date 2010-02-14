@@ -55,6 +55,6 @@ sys.stdout.write(B_WAV1_Chunk)
 sys.stdout.write(B_WAV2_Header)
 
 for i in range(n_samples):
-    sample = ((2**15) - 1) * math.sin((i%40) * (2 * math.pi/40)) + (2**15)
-    sys.stdout.write(struct.pack('H', sample))
+    sample = ((2**15) - 1) * math.cos((i%20) * (2 * math.pi/20))
+    sys.stdout.write(struct.pack('h', sample))
 
