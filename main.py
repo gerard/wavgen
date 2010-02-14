@@ -3,6 +3,7 @@
 import random
 import struct
 import math
+import sys
 
 sound_len = 2048
 sample_rate = 8000
@@ -49,13 +50,11 @@ B_WAV2_Header = struct.pack(WAV2Parse_Format,
                             WAV_Subchunk2ID,
                             WAV_Subchunk2Size)
 
-f = open('test.wav', 'w+')
-f.write(B_RIFF_Header)
-f.write(B_WAV1_Chunk)
-f.write(B_WAV2_Header)
+sys.stdout.write(B_RIFF_Header)
+sys.stdout.write(B_WAV1_Chunk)
+sys.stdout.write(B_WAV2_Header)
 
 for i in range(n_samples):
     sample = (2**15) * math.sin((i%40) * (math.pi/40))      # 200 Hz signal
-    f.write(struct.pack('H', sample))
+    sys.stdout.write(struct.pack('H', sample))
 
-f.close()
