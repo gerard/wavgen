@@ -6,9 +6,10 @@ import math
 import sys
 
 sound_len = 2048
-sample_rate = 8000
+sample_rate = 48000
 n_channels = 1
-n_samples = 10000
+n_samples = sample_rate     # 1 second
+base_freq = int(sys.argv[1])
 
 RIFFParse_Format = "4sI4s"
 RIFF_ChunkID = "RIFF"
@@ -55,6 +56,13 @@ sys.stdout.write(B_WAV1_Chunk)
 sys.stdout.write(B_WAV2_Header)
 
 for i in range(n_samples):
-    sample = ((2**15) - 1) * math.cos((i%20) * (2 * math.pi/20))
-    sys.stdout.write(struct.pack('h', sample))
+    base_period = sample_rate/base_freq
+    base_wave = math.cos(i % base_period * (2 * math.pi/base_period))
+    base_amp = (2**14 - 1) * base_wave
+
+    fifth_period = (2 * base_period) / 3
+    fifth_wave = math.cos(i % fifth_period * (2 * math.pi/fifth_period))
+    fifth_amp = (2**14 - 1) * fifth_wave
+
+    sys.stdout.write(struct.pack('h', base_amp + fifth_amp))
 
