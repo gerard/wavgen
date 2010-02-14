@@ -2,6 +2,7 @@
 
 import random
 import struct
+import math
 
 sound_len = 2048
 sample_rate = 8000
@@ -54,6 +55,7 @@ f.write(B_WAV1_Chunk)
 f.write(B_WAV2_Header)
 
 for i in range(n_samples):
-    f.write(struct.pack('H', int(random.getrandbits(16))))
+    sample = (2**15) * math.sin((i%40) * (math.pi/40))      # 200 Hz signal
+    f.write(struct.pack('H', sample))
 
 f.close()
