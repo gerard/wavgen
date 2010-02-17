@@ -54,12 +54,13 @@ sys.stdout.write(B_RIFF_Header)
 sys.stdout.write(B_WAV1_Chunk)
 sys.stdout.write(B_WAV2_Header)
 
+base_period = sample_rate/base_freq
+fifth_period = (2 * base_period) / 3
+
 for i in range(n_samples):
-    base_period = sample_rate/base_freq
     base_wave = math.cos(i % base_period * (2 * math.pi/base_period))
     base_amp = (2**14 - 1) * base_wave
 
-    fifth_period = (2 * base_period) / 3
     fifth_wave = math.cos(i % fifth_period * (2 * math.pi/fifth_period))
     fifth_amp = (2**14 - 1) * fifth_wave
 
