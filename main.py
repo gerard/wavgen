@@ -8,7 +8,7 @@ sound_len = 2048
 sample_rate = 48000
 n_channels = 1
 n_samples = sample_rate     # 1 second
-base_freq = int(sys.argv[1])
+base_freq = float(sys.argv[1])
 
 RIFFParse_Format = "4sI4s"
 RIFF_ChunkID = "RIFF"
